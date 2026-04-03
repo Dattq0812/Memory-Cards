@@ -39,8 +39,7 @@ function initGame() {
     const totalCards = parseInt(difficultySelect.value); // Lấy số 8, 12 hoặc 16
     const pairsNeeded = totalCards / 2; // Số cặp cần thiết (4, 6 hoặc 8)
     
-    // BỔ SUNG LỆNH NÀY: Ép bảng game luôn chia thành số cột bằng chính số cặp (để luôn tạo ra 2 hàng)
-    gameBoard.style.gridTemplateColumns = `repeat(${pairsNeeded}, 1fr)`;
+    gameBoard.style.setProperty('--cols', pairsNeeded);
     
     const selectedEmojis = allEmojis.slice(0, pairsNeeded);
     
