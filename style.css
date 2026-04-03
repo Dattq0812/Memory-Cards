@@ -1,0 +1,146 @@
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-color: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-color: #1e293b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* --- Header & Stats --- */
+.game-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.game-header h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+/* BỔ SUNG: Chỉnh khoảng cách cho khu vực chọn cấp độ */
+.controls {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.select-btn {
+    padding: 6px 10px;
+    margin-left: 5px;
+    background-color: #e2e8f0;
+    color: var(--text-color);
+}
+.select-btn:hover { background-color: #cbd5e1; }
+
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover { background-color: var(--primary-hover); }
+.btn:active { transform: scale(0.95); }
+
+.game-board {
+    display: grid;
+    gap: 15px;
+    width: 100%;
+    max-width: 900px; /* Tăng độ rộng tối đa để chứa đủ 8 cột */
+}
+
+/* Responsive cho màn hình điện thoại nhỏ */
+@media (max-width: 600px) {
+    .game-board { gap: 8px; }
+    .card-back { font-size: 1.5rem !important; } /* Thu nhỏ emoji để vừa với nhiều cột trên mobile */
+}
+
+/* --- Card & 3D Flip Animation --- */
+.card {
+    aspect-ratio: 3 / 4; 
+    perspective: 1000px; 
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d; /* BẮT BUỘC: Fix lỗi 3D cho Safari/iOS */
+}
+
+.card.flipped .card-inner { 
+    transform: rotateY(180deg); 
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden; /* BẮT BUỘC: Giấu mặt sau khi lật */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Mặt trước (Mặt xanh úp xuống) */
+.card-front {
+    background: linear-gradient(135deg, var(--primary-color), #f900ff);
+    z-index: 2; /* ÉP BUỘC: Luôn nằm đè lên trên mặt icon khi chưa lật */
+    transform: rotateY(0deg); /* Khóa góc nhìn chuẩn */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hiệu ứng nảy lên khi rê chuột */
+.card:not(.flipped):hover .card-front {
+    transform: translateY(-5px) rotateY(0deg); /* Cập nhật lại hover để không bị lỗi góc xoay */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Mặt sau (Mặt chứa Icon Emoji) */
+.card-back {
+    background-color: var(--card-bg);
+    transform: rotateY(180deg); 
+    font-size: 3rem; 
+    border: 2px solid #cbd5e1;
+    z-index: 1; /* Nằm chìm dưới mặt trước */
+}
+
