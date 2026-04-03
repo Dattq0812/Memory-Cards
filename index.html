@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Matching Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="game-header">
+        <h1>Ghép Đôi Thẻ Bạc</h1>
+        
+        <div class="controls">
+            <label for="difficulty">Cấp độ: </label>
+            <select id="difficulty" class="btn select-btn">
+                <option value="8">Dễ (8 thẻ)</option>
+                <option value="12" selected>Trung bình (12 thẻ)</option>
+                <option value="16">Khó (16 thẻ)</option>
+            </select>
+        </div>
+
+        <div class="stats">
+            <p>Số lượt: <span id="moves-count">0</span></p>
+            <button id="reset-btn" class="btn">Chơi lại</button>
+        </div>
+    </header>
+
+    <main class="game-board" id="game-board"></main>
+
+    <dialog id="win-modal" class="modal">
+        <div class="modal-content">
+            <h2>Chúc mừng! 🎉</h2>
+            <p>Bạn đã chiến thắng chỉ với <strong id="final-moves">0</strong> lượt.</p>
+            <button id="play-again-btn" class="btn">Chơi ván mới</button>
+        </div>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>
